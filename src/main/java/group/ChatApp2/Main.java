@@ -21,9 +21,9 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
 
-		if (input.equals("file")){
+		if (input.equalsIgnoreCase("file")){
 			context.register(LoggerService.class, LogToFile.class);
-		} else if (input.equals("console")) {
+		} else if (input.equalsIgnoreCase("console")) {
 			context.register(LoggerService.class, LogToConsole.class);
 		}
 
