@@ -8,7 +8,7 @@ public class LoggerService {
     private Logger logger;
 
 
-    LoggerService(Logger logger){
+    public LoggerService(Logger logger){
         this.logger = logger;
     }
 

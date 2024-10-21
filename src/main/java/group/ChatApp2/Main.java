@@ -1,13 +1,11 @@
 package group.ChatApp2;
 
-import group.ChatApp2.Controllers_Andy.MainController;
 import group.ChatApp2.Logger.LogToConsole;
 import group.ChatApp2.Logger.LogToFile;
 import group.ChatApp2.Logger.LoggerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Scanner;
 
