@@ -8,7 +8,6 @@ public class GroupsController {
 
     GroupsService groupsService;
 
-
     @PostMapping("/group/create")
     public ResponseEntity<String> createGroup(){
         return groupsService.reply();
