@@ -1,12 +1,19 @@
 package group.ChatApp2.Controllers.GroupsController;
 
+import group.ChatApp2.Controllers.UsersController.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class GroupsController {
 
-    GroupsService groupsService;
+    private final GroupsService groupsService;
+
+    @Autowired
+    public GroupsController(GroupsService groupsService) {
+        this.groupsService = groupsService;
+    }
 
     @PostMapping("/group/create")
     public ResponseEntity<String> createGroup(){
@@ -27,5 +34,4 @@ public class GroupsController {
     public ResponseEntity<String> getGroupMembers(){
         return groupsService.reply();
     }
-
 }

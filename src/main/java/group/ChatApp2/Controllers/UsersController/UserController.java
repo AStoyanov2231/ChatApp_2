@@ -1,13 +1,18 @@
 package group.ChatApp2.Controllers.UsersController;
 
-import group.ChatApp2.Controllers_Andy.MainController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<String> userRegister(){
