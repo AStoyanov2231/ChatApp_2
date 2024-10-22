@@ -1,4 +1,4 @@
-package group.ChatApp2.Controllers.GroupsController;
+package group.ChatApp2.Controllers.Services;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
