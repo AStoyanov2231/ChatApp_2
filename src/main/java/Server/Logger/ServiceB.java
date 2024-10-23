@@ -1,6 +1,5 @@
-package group.ChatApp2.Logger;
+package Server.Logger;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component

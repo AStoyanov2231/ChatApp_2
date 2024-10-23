@@ -1,4 +1,4 @@
-package group.ChatApp2.Logger;
+package Server.Logger;
 
 public interface ITestService {
     void Test();

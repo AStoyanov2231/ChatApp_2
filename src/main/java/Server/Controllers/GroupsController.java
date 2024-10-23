@@ -1,6 +1,6 @@
-package group.ChatApp2.Controllers.GroupsController;
+package Server.Controllers;
 
-import group.ChatApp2.Controllers.Services.GroupsService;
+import Server.Services.GroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

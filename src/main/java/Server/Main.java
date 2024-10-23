@@ -1,12 +1,7 @@
-package group.ChatApp2;
+package Server;
 
-import group.ChatApp2.Logger.*;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import Server.Logger.DITestService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-
-import java.util.Scanner;
 
 //@SpringBootApplication
 //@ComponentScan(basePackages = "group.ChatApp2.*")

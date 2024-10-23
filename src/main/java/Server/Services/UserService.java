@@ -1,16 +1,15 @@
-package group.ChatApp2.Controllers.Services;
+package Server.Services;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GroupsService {
+public class UserService {
 
-    GroupsService(){}
+    UserService(){}
 
     public ResponseEntity<String> reply(){
         return new ResponseEntity<>("huh?", HttpStatus.OK);
-
     }
 }
