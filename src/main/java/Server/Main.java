@@ -1,18 +1,20 @@
 package Server;
 
 import Server.Logger.DITestService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-//@SpringBootApplication
+@SpringBootApplication
 //@ComponentScan(basePackages = "group.ChatApp2.*")
 public class Main {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(Main.class, args);
+		SpringApplication.run(Main.class, args);
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("group.ChatApp2.*");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("Server.*");
 
-		System.out.println("log to CONSOLE or log to FILE?");
+//		System.out.println("log to CONSOLE or log to FILE?");
 //		Scanner scanner = new Scanner(System.in);
 //
 //		String input = scanner.nextLine();

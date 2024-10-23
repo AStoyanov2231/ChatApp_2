@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class GroupsController {
 
-    private final GroupsService groupsService;
+    private GroupsService groupsService;
 
     @Autowired
     public GroupsController(GroupsService groupsService) {
