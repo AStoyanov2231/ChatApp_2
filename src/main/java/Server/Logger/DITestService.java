@@ -14,7 +14,7 @@ public class DITestService {
         this.logger = logger;
     }
 
-    public void order(){
+    public void createLog(){
         System.out.println("The application will log to");
         logger.log("neshto");
         testService.Test();

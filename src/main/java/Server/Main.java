@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @SpringBootApplication
-//@ComponentScan(basePackages = "group.ChatApp2.*")
+//@ComponentScan(basePackages = "Server.*")
 public class Main {
 
 	public static void main(String[] args) {
@@ -28,6 +28,6 @@ public class Main {
 //		context.refresh();
 
 		DITestService DITestService = context.getBean(DITestService.class);
-		DITestService.order();
+		DITestService.createLog();
 	}
 }
