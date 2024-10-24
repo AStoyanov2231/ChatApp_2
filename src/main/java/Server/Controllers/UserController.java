@@ -17,36 +17,34 @@ public class UserController {
 
     @PostMapping("/user")
     public ResponseEntity<String> userRegister(){
-        return userService.reply();
+        return userService.userRegister();
     }
 
     @GetMapping("/user/login")
     public ResponseEntity<String> userLogin(){
-        return userService.reply();
+        return userService.loginUser();
     }
 
     @PutMapping("/user")
     public ResponseEntity<String> userChangePassword(){
-        return userService.reply();
+        return userService.userChangePassword();
     }
 
     @DeleteMapping("/user")
     public ResponseEntity<String> userDelete(){
-        return userService.reply();
+        return userService.deleteUser();
     }
 
     @GetMapping("/user/groups")
-    public ResponseEntity<String> userGetJoinedGroups(){
-        return userService.reply();
-    }
+    public ResponseEntity<String> userGetJoinedGroups(){return userService.userGetJoinedGroups();}
 
     @GetMapping("/user")
     public ResponseEntity<String> userGetAsObject(){
-        return userService.reply();
+        return userService.userGetAsObject();
     }
 
     @PutMapping("/user/friend")
     public ResponseEntity<String> userAddFriend(){
-        return userService.reply();
+        return userService.userAddFriend();
     }
 }

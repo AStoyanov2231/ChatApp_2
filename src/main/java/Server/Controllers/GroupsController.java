@@ -16,22 +16,14 @@ public class GroupsController {
     }
 
     @PostMapping("/group/create")
-    public ResponseEntity<String> createGroup(){
-        return groupsService.reply();
-    }
+    public ResponseEntity<String> createGroup(){return groupsService.createGroup();}
 
     @GetMapping("/group")
-    public ResponseEntity<String> checkIfGroupExists(){
-        return groupsService.reply();
-    }
+    public ResponseEntity<String> checkIfGroupExists(){return groupsService.checkIfGroupExists();}
 
     @PutMapping("/group")
-    public ResponseEntity<String> addUserToGroup(){
-        return groupsService.reply();
-    }
+    public ResponseEntity<String> addUserToGroup(){return groupsService.addUserToGroup();}
 
     @GetMapping("/group/members")
-    public ResponseEntity<String> getGroupMembers(){
-        return groupsService.reply();
-    }
+    public ResponseEntity<String> getGroupMembers(){return groupsService.getGroupMembers();}
 }

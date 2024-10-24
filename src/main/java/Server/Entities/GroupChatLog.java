@@ -2,6 +2,8 @@ package Server.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table (name = "group_chat_log")
 public class GroupChatLog {
@@ -19,6 +21,7 @@ public class GroupChatLog {
 
     @Column(name = "timeStamp")
     private String timeStamp;
+    //private Date timeStamp;
 
     @Column(name = "groupId")
     private int groupId;
