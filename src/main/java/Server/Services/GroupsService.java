@@ -20,10 +20,6 @@ public class GroupsService implements IGroupService {
         this.databaseService = database;
     }
 
-    public ResponseEntity<String> reply(){
-        return new ResponseEntity<>("huh?", HttpStatus.OK);
-    }
-
     public ResponseEntity<String> createGroup(){
         return new ResponseEntity<>("Group created successfully", HttpStatus.CREATED);
     }
