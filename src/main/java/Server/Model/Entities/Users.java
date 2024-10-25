@@ -22,9 +22,6 @@ public class Users {
     @ManyToMany(mappedBy = "users")
     private List<Groups> groups;
 
-
-
-
     @ManyToMany
     @JoinTable(
             name = "user_friends",
