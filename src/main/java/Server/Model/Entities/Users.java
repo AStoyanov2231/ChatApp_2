@@ -2,6 +2,8 @@ package Server.Model.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table (name = "users")
 public class Users {
@@ -17,6 +19,12 @@ public class Users {
     @Column (name = "password", nullable = false)
     private String password;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Groups> groups;
+
+
+
+
     @ManyToMany
     @JoinTable(
             name = "user_friends",
@@ -25,6 +33,14 @@ public class Users {
     )
 
     // Getters and setters
+
+    public List<Groups> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Groups> groups) {
+        this.groups = groups;
+    }
 
     public int getId() {
         return id;

@@ -2,12 +2,15 @@ package Server.Controllers;
 
 import Server.Model.Entities.Groups;
 import Server.Services.GroupsService;
+import Server.Services.Repository.GroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class GroupsController {
@@ -20,16 +23,44 @@ public class GroupsController {
     }
 
     @PostMapping("/group/create")
-    public ResponseEntity<String> createGroup(){return groupsService.createGroup();}
+    public ResponseEntity<String> createGroup(@RequestParam(name = "group_name") String group_name){
+
+        if (groupsService.createGroup(group_name)){
+            return new ResponseEntity<>("Group created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Group name is already taken!", HttpStatus.CONFLICT);
+        }
+    }
 
     @GetMapping("/group")
-    public ResponseEntity<List<Groups>> getGroups(){
-        return new ResponseEntity<List<Groups>>(groupsService.listGroups(), HttpStatusCode.valueOf(200));
+    public ResponseEntity<String> getGroups(@RequestParam(name = "group_name") String group_name){
+
+        boolean doesGroupExist = groupsService.checkIfGroupExists(group_name);
+
+        if(doesGroupExist) {
+            return new ResponseEntity<>("Group exists.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No group", HttpStatus.CONFLICT);
+        }
     }
 
     @PutMapping("/group")
-    public ResponseEntity<String> addUserToGroup(){return groupsService.addUserToGroup();}
+    public ResponseEntity<String> addUserToGroup(@RequestParam(name = "username") String username,
+                                                 @RequestParam(name = "group_name") String groupName){
+
+        if (groupsService.addUserToGroup(username, groupName)){
+            return new ResponseEntity<>("User added to group successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User is already a member of this group!", HttpStatus.CONFLICT);
+        }
+
+    }
 
     @GetMapping("/group/members")
-    public ResponseEntity<String> getGroupMembers(){return groupsService.getGroupMembers();}
+    public ResponseEntity<List<String>> getGroupMembers(@RequestParam(name = "groupId") Integer groupId){
+
+        return new ResponseEntity<>(groupsService.getGroupMembers(groupId), HttpStatus.OK);
+
+
+    }
 }

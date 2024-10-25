@@ -1,48 +1,102 @@
 package Server.Services;
 
 import Server.Model.Entities.Groups;
-import Server.Model.Services.IDatabaseService;
+import Server.Model.Entities.Users;
 import Server.Model.Services.IGroupService;
+import Server.Services.Repository.GroupsRepository;
+import Server.Services.Repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroupsService implements IGroupService {
 
-    private IDatabaseService databaseService;
+    private final GroupsRepository groupsRepository;
+    private final UsersRepository usersRepository;
 
     @Autowired
-    GroupsService(IDatabaseService database){
-        this.databaseService = database;
+    GroupsService(GroupsRepository groupsRepository, UsersRepository usersRepository){
+        this.groupsRepository = groupsRepository;
+        this.usersRepository = usersRepository;
     }
 
-    public ResponseEntity<String> reply(){
-        return new ResponseEntity<>("huh?", HttpStatus.OK);
+
+    public boolean createGroup(String group_name){
+        Optional<Groups> existingGroup = groupsRepository.findByGroupName(group_name);
+
+        if(existingGroup.isPresent()) {
+            return false;
+        }
+
+        Groups group = new Groups();
+        group.setGroupName(group_name);
+        groupsRepository.save(group);
+
+        return true;
     }
 
-    public ResponseEntity<String> createGroup(){
-        return new ResponseEntity<>("Group created successfully", HttpStatus.CREATED);
+
+    public boolean checkIfGroupExists(String groupName){
+        Optional<Groups> existingGroup = groupsRepository.findByGroupName(groupName);
+
+        return existingGroup.isPresent();
+    }
+
+    public boolean addUserToGroup(String userName, String groupName){
+
+        Optional<Users> optionalUser = usersRepository.findByUsername(userName);
+        Optional<Groups> optionalGroup = groupsRepository.findByGroupName(groupName);
+
+        Users user = optionalUser.get();
+        Groups group = optionalGroup.get();
+
+        List<Groups> userGroups = user.getGroups();
+        if(!userGroups.contains(group)) {
+            userGroups.add(group);
+            user.setGroups(userGroups);
+
+            List<Users> groupUsers = group.getUsers();
+
+            if (!groupUsers.contains(user)) {
+                groupUsers.add(user);
+                group.setUsers(groupUsers);
+            }
+
+            usersRepository.save(user);
+            groupsRepository.save(group);
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
+    public List<String> getGroupMembers(int groupId){
+        Optional<Groups> optionalGroup = groupsRepository.findByGroupId(groupId);
+
+        Groups group = optionalGroup.get();
+       List<Users> groupUsers = group.getUsers();
+
+        List<String> memberUsernames = new ArrayList<>();
+
+        for (Users member : groupUsers) {
+            memberUsernames.add(member.getUsername());
+        }
+
+        return memberUsernames;
+
     }
 
     /////////
-    public List<Groups> listGroups(){
-        return databaseService.getGroups();
-    }
+//    public List<Groups> listGroups(){
+//        return databaseService.getGroups();
+//    }
     ////////
-
-    public ResponseEntity<String> checkIfGroupExists(){
-        return new ResponseEntity<>("Group exists", HttpStatus.OK);
-    }
-
-    public ResponseEntity<String> addUserToGroup(){
-        return new ResponseEntity<>("User added to group", HttpStatus.OK);
-    }
-
-    public ResponseEntity<String> getGroupMembers(){
-        return new ResponseEntity<>("Group members retrieved", HttpStatus.OK);
-    }
 }
