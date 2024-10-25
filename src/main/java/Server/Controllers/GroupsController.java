@@ -48,7 +48,6 @@ public class GroupsController {
         } else {
             return new ResponseEntity<>("User is already a member of this group!", HttpStatus.CONFLICT);
         }
-
     }
 
     @GetMapping("/group/members")

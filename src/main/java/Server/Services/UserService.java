@@ -1,5 +1,6 @@
 package Server.Services;
 
+import Server.Model.Entities.Groups;
 import Server.Model.Entities.Users;
 import Server.Model.Services.IDatabaseService;
 import Server.Model.Services.IUserService;
@@ -56,15 +57,34 @@ public class UserService implements IUserService {
 
         Users user = optionalUser.get();
 
-        if(oldPassword.equals(user.getPassword())) { return false; }
+        if(!oldPassword.equals(user.getPassword())) { return false; }
 
         user.setPassword(newPassword);
         usersRepository.save(user);
         return true;
     }
 
-    public ResponseEntity<String> deleteUser(){
-        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+    public boolean deleteUser(String username, String password){
+        Optional<Users> optionalUser = usersRepository.findByUsername(username);
+
+        if (optionalUser.isEmpty()) {
+            return false;
+        }
+        Users user = optionalUser.get();
+        if (!user.getPassword().equals(password)){
+            return false;
+        }
+
+//        for (Groups group : user.getGroups()) {
+//            group.getUsers().remove(user);
+//        }
+//
+//        for (Users friend : user.getFriends()) {
+//            friend.getFriends().remove(user);
+//        }
+
+        usersRepository.delete(user);
+        return true ;
     }
 
     public ResponseEntity<String> userGetJoinedGroups(){
@@ -75,7 +95,28 @@ public class UserService implements IUserService {
         return new ResponseEntity<>("This is the user's object", HttpStatus.OK);
     }
 
-    public ResponseEntity<String> userAddFriend(){
-        return new ResponseEntity<>("User added friend successfully", HttpStatus.OK);
+    public boolean userAddFriend(String username, String friendUsername){
+        Optional<Users> optionalUser = usersRepository.findByUsername(username);
+        Optional<Users> optionalFriend = usersRepository.findByUsername(friendUsername);
+
+        if (optionalUser.isEmpty() || optionalFriend.isEmpty()) {
+            return false;
+        }
+
+        Users user = optionalUser.get();
+        Users friend = optionalFriend.get();
+
+        // TODO: да се довъши
+//        if (user.getFriends().contains(friend)) {
+//            return new ResponseEntity<>("Friend already added", HttpStatus.CONFLICT);
+//        }
+//
+//        user.addFriend(friend);
+//        friend.addFriend(user);
+
+        usersRepository.save(user);
+        usersRepository.save(friend);
+
+        return true;
     }
 }

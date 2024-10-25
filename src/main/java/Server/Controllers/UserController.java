@@ -1,10 +1,13 @@
 package Server.Controllers;
 
+import Server.Model.Entities.Users;
 import Server.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -45,26 +48,39 @@ public class UserController {
         boolean isPasswordChanged = userService.userChangePassword(username, oldPassword, newPassword);
 
         if(isPasswordChanged){
-            return new ResponseEntity<>("Password changed successfuly!", HttpStatus.OK);
+            return new ResponseEntity<>("Password changed successfully!", HttpStatus.OK);
         }
         else return new ResponseEntity<>("Error while changing password", HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/user/deleteUser")
-    public ResponseEntity<String> userDelete(){
-        return userService.deleteUser();
+    public ResponseEntity<String> userDelete(@RequestParam(name = "username") String username,
+                                             @RequestParam(name = "password") String password){
+        boolean isDeletedUser = userService.deleteUser(username, password);
+
+        if(isDeletedUser){
+            return new ResponseEntity<>("User deleted successfully!", HttpStatus.OK);
+        }
+        else return new ResponseEntity<>("Error while deleting user", HttpStatus.CONFLICT);
     }
 
+    //TODO
     @GetMapping("/user/groups")
     public ResponseEntity<String> userGetJoinedGroups(){return userService.userGetJoinedGroups();}
-
+    //TODO
     @GetMapping("/user")
     public ResponseEntity<String> userGetAsObject(){
         return userService.userGetAsObject();
     }
 
-    @PutMapping("/user/friend")
-    public ResponseEntity<String> userAddFriend(){
-        return userService.userAddFriend();
+    @PutMapping("/user/addFriend")
+    public ResponseEntity<String> userAddFriend(@RequestParam(name = "username") String username,
+                                                @RequestParam(name = "friendUsername") String friendUsername){
+        boolean isFriendAdded = userService.userAddFriend(username, friendUsername);
+
+        if (isFriendAdded){
+            return new ResponseEntity<>("Friend added successfully!", HttpStatus.OK);
+        }
+        else return new ResponseEntity<>("Error couldn't add friend!", HttpStatus.CONFLICT);
     }
 }
