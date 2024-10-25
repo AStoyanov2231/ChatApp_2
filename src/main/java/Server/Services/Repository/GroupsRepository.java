@@ -1,6 +1,6 @@
-package Server.Repositories;
+package Server.Services.Repository;
 
-import Server.Entities.Groups;
+import Server.Model.Entities.Groups;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

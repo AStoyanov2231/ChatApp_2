@@ -1,8 +1,6 @@
-package Server.Entities;
+package Server.Model.Entities;
 
 import jakarta.persistence.*;
-
-import java.util.Date;
 
 @Entity
 @Table (name = "group_chat_log")

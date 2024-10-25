@@ -1,11 +1,12 @@
 package Server.Services;
 
+import Server.Model.Services.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
     UserService(){}
 

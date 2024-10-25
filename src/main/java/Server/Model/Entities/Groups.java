@@ -1,4 +1,4 @@
-package Server.Entities;
+package Server.Model.Entities;
 
 import jakarta.persistence.*;
 
