@@ -38,7 +38,6 @@ public class UserService implements IUserService {
     public boolean loginUser(String username, String password) {
         Optional<Users> optionalUser = usersRepository.findByUsername(username);
 
-
         if (optionalUser.isEmpty()) {
             return false;
         }
