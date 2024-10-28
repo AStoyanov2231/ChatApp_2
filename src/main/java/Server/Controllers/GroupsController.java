@@ -18,9 +18,9 @@ public class GroupsController {
     }
 
     @PostMapping("/group/create")
-    public ResponseEntity<String> createGroup(@RequestParam(name = "group_name") String group_name){
+    public ResponseEntity<String> createGroup(@RequestParam(name = "groupName") String groupName){
 
-        if (groupsService.createGroup(group_name)){
+        if (groupsService.createGroup(groupName)){
             return new ResponseEntity<>("Group created successfully", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Group name is already taken!", HttpStatus.CONFLICT);
@@ -28,9 +28,9 @@ public class GroupsController {
     }
 
     @GetMapping("/group")
-    public ResponseEntity<String> getGroups(@RequestParam(name = "group_name") String group_name){
+    public ResponseEntity<String> getGroups(@RequestParam(name = "groupName") String groupName){
 
-        boolean doesGroupExist = groupsService.checkIfGroupExists(group_name);
+        boolean doesGroupExist = groupsService.checkIfGroupExists(groupName);
 
         if(doesGroupExist) {
             return new ResponseEntity<>("Group exists.", HttpStatus.OK);
@@ -41,7 +41,7 @@ public class GroupsController {
 
     @PutMapping("/group")
     public ResponseEntity<String> addUserToGroup(@RequestParam(name = "username") String username,
-                                                 @RequestParam(name = "group_name") String groupName){
+                                                 @RequestParam(name = "groupName") String groupName){
 
         if (groupsService.addUserToGroup(username, groupName)){
             return new ResponseEntity<>("User added to group successfully!", HttpStatus.OK);

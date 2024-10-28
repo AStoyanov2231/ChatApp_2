@@ -25,15 +25,15 @@ public class GroupsService implements IGroupService {
     }
 
 
-    public boolean createGroup(String group_name){
-        Optional<Groups> existingGroup = groupsRepository.findByGroupName(group_name);
+    public boolean createGroup(String groupName){
+        Optional<Groups> existingGroup = groupsRepository.findByGroupName(groupName);
 
         if(existingGroup.isPresent()) {
             return false;
         }
 
         Groups group = new Groups();
-        group.setGroupName(group_name);
+        group.setGroupName(groupName);
         groupsRepository.save(group);
 
         return true;
