@@ -74,13 +74,13 @@ public class UserService implements IUserService {
             return false;
         }
 
-//        for (Groups group : user.getGroups()) {
-//            group.getUsers().remove(user);
-//        }
-//
-//        for (Users friend : user.getFriends()) {
-//            friend.getFriends().remove(user);
-//        }
+        for (Groups group : user.getGroups()) {
+            group.getUsers().remove(user);
+        }
+
+        for (Users friend : user.getFriends()) {
+            friend.getFriends().remove(user);
+        }
 
         usersRepository.delete(user);
         return true ;
@@ -105,13 +105,12 @@ public class UserService implements IUserService {
         Users user = optionalUser.get();
         Users friend = optionalFriend.get();
 
-        // TODO: да се довъши
-//        if (user.getFriends().contains(friend)) {
-//            return new ResponseEntity<>("Friend already added", HttpStatus.CONFLICT);
-//        }
-//
-//        user.addFriend(friend);
-//        friend.addFriend(user);
+        if (user.getFriends().contains(friend)) {
+            return false;
+        }
+
+        user.addFriend(friend);
+        friend.addFriend(user);
 
         usersRepository.save(user);
         usersRepository.save(friend);

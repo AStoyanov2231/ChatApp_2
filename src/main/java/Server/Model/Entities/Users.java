@@ -2,6 +2,7 @@ package Server.Model.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,9 @@ public class Users {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friends_id")
     )
-
+//////////////////////////
+    private List<Users> friends;
+//////////////////////////
     // Getters and setters
 
     public List<Groups> getGroups() {
@@ -39,13 +42,9 @@ public class Users {
         this.groups = groups;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) {this.id = id;}
 
     public String getUsername() {
         return username;
@@ -61,5 +60,20 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    ///////////////////////////////////////////
+
+    public List<Users> getFriends() {
+        return friends;
+    }
+
+    public void addFriend(Users friend) {
+        if (this.friends == null) {
+            this.friends = new ArrayList<>();
+        }
+        if (!this.friends.contains(friend)) {
+            this.friends.add(friend);
+        }
     }
 }

@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/user/register")
     public ResponseEntity<String> userRegister(@RequestParam(name = "username") String username,
                                                @RequestParam(name = "password") String password) {
         boolean isRegistered = userService.userRegister(username, password);
@@ -53,7 +53,7 @@ public class UserController {
         else return new ResponseEntity<>("Error while changing password", HttpStatus.CONFLICT);
     }
 
-    @DeleteMapping("/user/deleteUser")
+    @DeleteMapping("/user/delete")
     public ResponseEntity<String> userDelete(@RequestParam(name = "username") String username,
                                              @RequestParam(name = "password") String password){
         boolean isDeletedUser = userService.deleteUser(username, password);
